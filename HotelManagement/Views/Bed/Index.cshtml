@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HotelManagement.Models.Bed>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="col-sm-8">
+    <h4 class="d-inline-block">Bed types</h4>
+    <a asp-action="Add" class="btn btn-success btn-sm">Add new</a>
+
+</div>
+
+@if(Model.Count() == 0)
+{
+    <p>You do not have any beds defined!</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Max People</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+         }
+        @foreach (Bed bed in Model)
+        {
+            <tr>
+                <th scope="row">@count</th>
+                <td>
+                    @bed.Name
+                </td>
+                <td>
+                    @bed.MaxPeople
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@bed.Id" class="btn btn-success btn-sm">Edit</a>
+                </td>
+            </tr>
+
+
+            count++;
+        }
+    </tbody>
+</table>

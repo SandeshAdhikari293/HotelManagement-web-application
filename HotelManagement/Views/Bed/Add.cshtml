@@ -1,0 +1,25 @@
+﻿@model HotelManagement.Models.Bed
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="conainer">
+        <h1>Add new bed</h1>
+
+    </div>
+
+    <div class="container py-5">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" asp-for="Name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Max number of people</label>
+                <input type="number" class="form-control" id="maxpeople" name="maxpeople" asp-for="MaxPeople" />
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
