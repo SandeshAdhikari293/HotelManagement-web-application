@@ -9,5 +9,14 @@
         public List<Bed> Beds { get; set; }
         public List<Amenity> Amenities { get; set; }
 
+        public int maxPeople()
+        {
+            int count = 0;
+            foreach (Bed bed in Beds)
+            {
+                count = count + bed.MaxPeople;
+            }
+            return count;
+        }
     }
 }
