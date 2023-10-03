@@ -9,7 +9,8 @@ namespace HotelManagement.Models
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public int People {  get; set; }
-        public int Price {  get; set; }
-        public IdentityUser User { get; set; }
+        public double Price {  get; set; }
+        public IdentityUser? User { get; set; }
+
     }
 }

@@ -1,5 +1,29 @@
-﻿@*
+﻿@model IEnumerable<HotelManagement.Models.Booking>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+}
+<div class="mb-4">
+    <h1>Book with us!</h1>
+    <a class="btn btn-success" asp-action="Add">Book now!</a>
+</div>
+
+<h3 class="mb-2">Manage your bookings...</h3>
+
+@foreach(Booking booking in Model)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>@booking.CheckIn.Date.ToShortDateString() - @booking.CheckOut.Date.ToShortDateString()</h4>
+            <p>Room: @booking.Room.Name | @booking.Room.Description</p>
+        </div>
+        <div class="card-body">
+            <p>Price: @booking.Price</p>
+            <p>Number of people: @booking.People</p>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-danger" asp-action="Cancel" asp-route-id="@booking.Id">Cancel booking</a>
+        </div>
+    </div>
 }

@@ -1,0 +1,66 @@
+﻿@model HotelManagement.Models.ViewModels.BookingSearch
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="conainer">
+        <h1>New Booking</h1>
+
+    </div>
+
+    <div class="container py-5">
+        <form asp-action="Search" class="form-check-inline" method="post">
+            <div class="mb-3">
+                <label class="form-label">Check-in date</label>
+                <input type="date" class="form-control" id="checkin" name="checkin" asp-for="Booking.CheckIn" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Check-out date</label>
+                <input type="date" class="form-control" id="checkout" name="checkout" asp-for="Booking.CheckOut" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Number of people</label>
+                <input type="number" class="form-control" id="people" name="people" asp-for="Booking.People" />
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Search Availability</button>
+            </div>
+        </form>
+        @foreach(Room room in Model.Rooms)
+        {
+            <div class="container">
+                <div class="card">
+                    <div class="card-header"> @room.Name - @room.Description
+                    </div>
+                    <div class="card-body">
+                        Fits up to @room.maxPeople() people
+
+                        Beds:
+                        @foreach(Bed bed in room.Beds)
+                        {
+                            <p>@bed.Name</p>
+                        }
+
+                        Amenities:
+                        @foreach (Amenity amenity in room.Amenities)
+                        {
+                            <p>@amenity.Name</p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                         <form asp-action="Book" asp-route-roomid="@room.Id" class="form-check-inline" method="post">
+
+                            <input type="hidden" class="form-control" id="checkin" name="checkin" asp-for="Booking.CheckIn" />
+                            <input type="hidden" class="form-control" id="checkout" name="checkout" asp-for="Booking.CheckOut" />
+                            <input type="hidden" class="form-control" id="people" name="people" asp-for="Booking.People" />
+
+                            <button type="submit" class="btn btn-success">Reserve now</button>
+
+                         </form>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
