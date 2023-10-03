@@ -4,6 +4,7 @@ using HotelManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231003225008_applicationUsersMigration")]
+    partial class applicationUsersMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasIndex("RoomsId");
 
-                    b.ToTable("AmenityRoom", (string)null);
+                    b.ToTable("AmenityRoom");
                 });
 
             modelBuilder.Entity("BedRoom", b =>
@@ -49,7 +51,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasIndex("RoomsId");
 
-                    b.ToTable("BedRoom", (string)null);
+                    b.ToTable("BedRoom");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Amenity", b =>
@@ -64,7 +66,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amenities", (string)null);
+                    b.ToTable("Amenities");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Bed", b =>
@@ -82,7 +84,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Beds", (string)null);
+                    b.ToTable("Beds");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Booking", b =>
@@ -115,7 +117,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Room", b =>
@@ -137,7 +139,7 @@ namespace HotelManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms", (string)null);
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -351,10 +353,6 @@ namespace HotelManagement.Data.Migrations
             modelBuilder.Entity("HotelManagement.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");

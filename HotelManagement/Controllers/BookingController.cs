@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
 using HotelManagement.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -59,7 +60,7 @@ namespace HotelManagement.Controllers
 
             booking.Price = (int) (room.BasePrice * booking.People);
             booking.Room = room;
-            //booking.User = User.Identity;
+            //booking.User = HttpContext.User.
 
             _context.Bookings.Add(booking);
             _context.SaveChanges();
