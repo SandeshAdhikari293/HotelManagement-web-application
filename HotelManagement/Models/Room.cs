@@ -9,6 +9,12 @@
         public List<Bed> Beds { get; set; }
         public List<Amenity> Amenities { get; set; }
 
+        public Room()
+        {
+            Beds = new List<Bed>();
+            Amenities = new List<Amenity>();
+        }
+
         public int maxPeople()
         {
             int count = 0;

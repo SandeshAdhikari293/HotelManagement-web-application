@@ -1,0 +1,56 @@
+﻿@model HotelManagement.Models.ViewModels.RoomBedsAmens
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="conainer">
+        <h1>Add new room</h1>
+
+    </div>
+
+    <div class="container py-5">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Room Number</label>
+                <input type="text" class="form-control" id="name" name="name" asp-for="Room.Name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Room Description</label>
+                <input type="text" class="form-control" id="description" name="description" asp-for="Room.Description" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Base price</label>
+                <input type="number" class="form-control" id="baseprice" name="baseprice" asp-for="Room.BasePrice" />
+            </div>
+
+
+            <label class="form-label">Select your beds</label>
+            <ul class="list-group mb-3" name="bedList" id="bedList">
+                @foreach (Bed bed in Model.Beds)
+                {
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" name="bedList" type="checkbox" value="@bed.Id" aria-label="false">
+                        @bed.Name
+                    </li>
+                }
+
+            </ul>
+
+            <label class="form-label">Select your amenities</label>
+            <ul class="list-group mb-3" name="amenList" id="amenList">
+                @foreach (Amenity amenity in Model.Amenities)
+                {
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" name="amenList" type="checkbox" value="@amenity.Id" aria-label="false">
+                        @amenity.Name
+                    </li>
+                }
+
+            </ul>
+
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
