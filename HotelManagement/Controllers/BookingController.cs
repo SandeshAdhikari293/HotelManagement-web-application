@@ -67,6 +67,20 @@ namespace HotelManagement.Controllers
             return View("Success", booking);
         }
 
+        public IActionResult Delete(string id)
+        {
+            Guid guid = Guid.Parse(id);
+            Booking booking = _context.Bookings.Find(guid);
+            if (booking != null)
+            {
+                _context.Bookings.Remove(booking);
+                _context.SaveChanges();
+            }
+
+            var bookings = _context.Bookings.Include(r => r.Room).ToList();
+            return View("Index", bookings);
+        }
+
 
 
         public bool isAvailable(Room room, DateTime checkin, DateTime checkout)
@@ -83,7 +97,10 @@ namespace HotelManagement.Controllers
             return true;
         }
 
-
+        private bool BookingExists(Guid id)
+        {
+            return (_context.Bookings?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
 
     }
 }
