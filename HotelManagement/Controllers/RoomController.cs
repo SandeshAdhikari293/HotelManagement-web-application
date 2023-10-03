@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
 using HotelManagement.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,8 @@ namespace HotelManagement.Controllers
         {
             _context = applicationDbContext;
         }
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var rooms = await _context.Rooms
@@ -25,7 +28,7 @@ namespace HotelManagement.Controllers
             return View(rooms);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add() {
 
             RoomBedsAmens roomBedsAmens = new RoomBedsAmens();
@@ -36,6 +39,7 @@ namespace HotelManagement.Controllers
             return View(roomBedsAmens);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(Room room, String[] bedList, String[] amenList)
         {
@@ -70,6 +74,7 @@ namespace HotelManagement.Controllers
             return View("Index", rooms);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(string? id)
         {
             Room room =_context.Rooms
@@ -86,6 +91,7 @@ namespace HotelManagement.Controllers
             return View(roomBedsAmens);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(Room room, String[] bedList, String[] amenList)
         {
@@ -146,6 +152,7 @@ namespace HotelManagement.Controllers
             return View("Index", rooms);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
 

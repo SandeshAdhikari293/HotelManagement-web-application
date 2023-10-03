@@ -59,7 +59,7 @@ namespace HotelManagement.Controllers
 
             booking.Price = (int) (room.BasePrice * booking.People);
             booking.Room = room;
-
+            //booking.User = User.Identity;
 
             _context.Bookings.Add(booking);
             _context.SaveChanges();

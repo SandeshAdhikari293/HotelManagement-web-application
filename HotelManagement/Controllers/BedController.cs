@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace HotelManagement.Controllers
             _context = applicationDbContext;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var beds = await _context.Beds.ToListAsync();
@@ -21,10 +23,12 @@ namespace HotelManagement.Controllers
             return View(beds);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Add() { 
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(Bed bed)
         {
@@ -34,6 +38,7 @@ namespace HotelManagement.Controllers
             return View("Index", beds);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(string? id)
         {
             Guid guid = Guid.Parse(id);
@@ -41,6 +46,7 @@ namespace HotelManagement.Controllers
             return View(bed);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(Bed bed)
         {
@@ -65,6 +71,7 @@ namespace HotelManagement.Controllers
             return View("Index", beds);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             Guid guid = Guid.Parse(id);

@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace HotelManagement.Controllers
             _context = applicationDbContext;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var amenities = await _context.Amenities.ToListAsync();
@@ -20,11 +22,13 @@ namespace HotelManagement.Controllers
             return View(amenities);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(Amenity amenity)
         {
@@ -34,6 +38,7 @@ namespace HotelManagement.Controllers
             return View("Index", amenities);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(string? id)
         {
             Guid guid = Guid.Parse(id);
@@ -41,6 +46,7 @@ namespace HotelManagement.Controllers
             return View(amenity);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(Amenity amenity)
         {
@@ -64,6 +70,7 @@ namespace HotelManagement.Controllers
             return View("Index", amenities);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             Guid guid = Guid.Parse(id);
@@ -77,6 +84,7 @@ namespace HotelManagement.Controllers
             var amenities = await _context.Amenities.ToListAsync();
             return View("Index", amenities);
         }
+
 
         private bool AmenityExists(Guid id)
         {
