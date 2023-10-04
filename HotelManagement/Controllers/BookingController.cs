@@ -4,16 +4,20 @@ using HotelManagement.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
+
 
 namespace HotelManagement.Controllers
 {
     public class BookingController : Controller
     {
 
+        private readonly UserManager<ApplicationUser> _userManager;
         readonly ApplicationDbContext _context;
-        public BookingController(ApplicationDbContext applicationDbContext)
+        public BookingController(UserManager<ApplicationUser> userManager, ApplicationDbContext applicationDbContext)
         {
+            _userManager = userManager;
             _context = applicationDbContext;
         }
         public IActionResult Index()
@@ -60,7 +64,8 @@ namespace HotelManagement.Controllers
 
             booking.Price = (int) (room.BasePrice * booking.People);
             booking.Room = room;
-            //booking.User = HttpContext.User.
+            string name = HttpContext.User.Identity.Name;
+            booking.User = _userManager.Users.Where(u => u.Email.Equals(name)).First();
 
             _context.Bookings.Add(booking);
             _context.SaveChanges();

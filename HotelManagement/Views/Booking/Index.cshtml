@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<HotelManagement.Models.Booking>
+
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -11,19 +16,27 @@
 
 <h3 class="mb-2">Manage your bookings...</h3>
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+
+}
 @foreach(Booking booking in Model)
 {
-    <div class="card mb-4">
-        <div class="card-header">
-            <h4>@booking.CheckIn.Date.ToShortDateString() - @booking.CheckOut.Date.ToShortDateString()</h4>
-            <p>Room: @booking.Room.Name | @booking.Room.Description</p>
+
+    @if (booking.User?.Id == user.Id)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@booking.CheckIn.Date.ToShortDateString() - @booking.CheckOut.Date.ToShortDateString()</h4>
+                <p>Room: @booking.Room.Name | @booking.Room.Description</p>
+            </div>
+            <div class="card-body">
+                <p>Price: @booking.Price</p>
+                <p>Number of people: @booking.People</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@booking.Id">Cancel booking</a>
+            </div>
         </div>
-        <div class="card-body">
-            <p>Price: @booking.Price</p>
-            <p>Number of people: @booking.People</p>
-        </div>
-        <div class="card-footer">
-            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@booking.Id">Cancel booking</a>
-        </div>
-    </div>
+    }
 }
