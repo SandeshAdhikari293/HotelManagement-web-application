@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HotelManagement.Models.Booking>
+﻿@model HotelManagement.Models.ViewModels.BookingRooms;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,8 +6,15 @@
 
     List<Booking> checkIns = new List<Booking>();
     List<Booking> checkOuts = new List<Booking>();
+    List<Booking> occupied = new List<Booking>();
 
-    foreach(Booking booking in Model)
+    int people = 0;
+    int maxPeople = ViewBag.MaxPeople;
+    int rooms = 0;
+    int maxRooms = ViewBag.RoomCount;
+
+
+    foreach(Booking booking in Model.Bookings)
     {
         if(booking.CheckIn.Date == DateTime.Now.Date)
         {
@@ -17,19 +24,47 @@
         {
             checkOuts.Add(booking);
         }
+        if (DateTime.Now.Date >= booking.CheckIn && DateTime.Now <= booking.CheckOut)
+        {
+            occupied.Add(booking);
+            people += booking.People;
+
+            rooms++;
+        }
     }
+
+    Booking getRoomBooking(Room room)
+    {
+        foreach(Booking booking in occupied)
+        {
+            if(booking.Room == room)
+            {
+                return booking;
+            }
+        }
+
+        return null;
+
+    }
+
+    decimal peopleAsPercent = ((decimal) people / (decimal) maxPeople) * 100;
+    decimal roomsAsPercent = ((decimal) rooms / (decimal)maxRooms) * 100;
 
 }
 
 <h3>Todays breakdown:</h3>
+
+<p>People Occupancy: @people / @maxPeople | @peopleAsPercent.ToString("00")%</p>
+<p>Room Occupancy: @rooms / @maxRooms | @roomsAsPercent.ToString("00")%</p>
 
 <form>
     <input type="date" asp-action="Index"/>
 </form>
 
 <h6 class="mb-4">Check-ins:</h6>
-
-
+@if(checkIns.Count == 0){
+<p>There are no check-ins today..</p>
+}
 @foreach(Booking checkIn in checkIns)
 {
     <div class="card mb-4">
@@ -57,6 +92,10 @@
 
 
 <h6 class="mb-4">Check-outs:</h6>
+@if(checkOuts.Count ==0)
+{
+    <p>There are no check-outs today..</p>
+}
 @foreach (Booking checkOut in checkOuts)
 {
     <div class="card mb-4">
@@ -81,3 +120,26 @@
 
 }
 
+<h6 class="mb-4">Rooms:</h6>
+<div class="card-group">
+    @foreach (Room room in Model.Rooms)
+    {
+        <div class="card p-2">
+            <div class="card-body">
+                <h5 class="card-title">@room.Name | @room.Description</h5>
+                    @{
+                        Booking booking = getRoomBooking(room);
+                    }
+                    @if(booking != null)
+                    {
+                        <p class="card-text">This room is booked!</p>
+                        <p class="card-text">@booking.CheckIn.ToShortDateString() - @booking.CheckIn.ToShortDateString() </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">This room is empty</p>
+                    }
+            </div>
+        </div>
+    }
+</div>

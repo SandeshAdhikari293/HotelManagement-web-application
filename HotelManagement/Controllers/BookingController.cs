@@ -109,6 +109,7 @@ namespace HotelManagement.Controllers
             return true;
         }
 
+
         private bool BookingExists(Guid id)
         {
             return (_context.Bookings?.Any(e => e.Id == id)).GetValueOrDefault();

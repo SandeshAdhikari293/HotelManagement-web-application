@@ -4,6 +4,8 @@
 
 <head>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/config.js"></script>
+
 </head>
 <body>
     <div class="container text-center mb-5">
@@ -19,7 +21,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Dining & Amenities</h5>
                         <p class="card-text">Hotel Hidden Kingdom produces the highest quality food in our fully-equipped restaurant.</p>
-                        <a href="#" class="btn btn-primary">View</a>
+                        <a asp-controller="Amenities" asp-action="Overview" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +31,7 @@
                     <div class="card-body">
                         <h5 class="card-title">View our rooms</h5>
                         <p class="card-text">Browse our set of luxury, state of the art rooms and apartments</p>
-                        <a href="#" class="btn btn-primary">View</a>
+                        <a asp-controller="Room" asp-action="Overview" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
@@ -39,14 +41,14 @@
                     <div class="card-body">
                         <h5 class="card-title">Gallery</h5>
                         <p class="card-text">Take a look at our gorgeous, newly built and highly furnished rooms, restaurants, lounges and apartments</p>
-                        <a href="#" class="btn btn-primary">View</a>
+                        <a asp-controller="Home" asp-action="Gallery" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container text-center mb-5">
-        <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
+        <a class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="Add">Book now!</a>
     </div>
     <div class="container  mb-3">
         <div class="row">
@@ -61,11 +63,11 @@
             </div>
             <div class="col-sm d-flex align-items-stretch">
                 <div class="container">
-                    <iframe width="450"
+                    <iframe id="map" width="450"
                             height="250"
                             frameborder="0" style="border:0"
                             referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyADMurvFdPoWrbvJ-MRUGl3wcCO1HWUdKI&q=Hotel+Hidden+Kingdom,Pokhara+Nepal"
+                            src=""
                             allowfullscreen>
                     </iframe>
                 </div>
@@ -82,16 +84,7 @@
             </div>
         </div>
     </div>
-
-
-
-    <script>
-        $("#subtitle").click(function () {
-            alert("Secret alert");
-        });
-    </script>
-
-
+    <script src="~/js/site.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script>
         var typed = new Typed(".auto-type", {
@@ -100,6 +93,5 @@
         backSpeed: 200,
         loop: true
         });
-
     </script>
 </body>

@@ -24,5 +24,11 @@
             }
             return count;
         }
+
+        public bool isOccupied()
+        {
+
+            return false;
+        }
     }
 }
