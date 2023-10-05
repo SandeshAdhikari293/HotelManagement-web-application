@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
 using HotelManagement.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ namespace HotelManagement.Controllers
             _userManager = userManager;
             _context = applicationDbContext;
         }
+
+        [Authorize]
         public IActionResult Index()
         {
             var bookings = _context.Bookings.Include(r => r.Room).ToList();
@@ -34,6 +37,7 @@ namespace HotelManagement.Controllers
             return View(bookingSearch);
         }
 
+        [Authorize]
         public IActionResult Search(Booking booking)
         {
 
@@ -57,6 +61,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Book(Booking booking, string roomID)
         {
             Guid guid = Guid.Parse(roomID);
@@ -73,6 +78,7 @@ namespace HotelManagement.Controllers
             return View("Success", booking);
         }
 
+        [Authorize]
         public IActionResult Delete(string id)
         {
             Guid guid = Guid.Parse(id);

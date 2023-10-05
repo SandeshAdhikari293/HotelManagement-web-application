@@ -2,7 +2,104 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container text-center mb-5">
+        <h1 >Hotel Hidden Kingdom</h1>
+        <p class="fw-semibold" id="typing">Stay with us in <span class="auto-type text-warning"></span></p>
+    </div>
+
+    <div class="container mb-3 center-text">
+        <div class="row">
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@Url.Content("~/content/images/outside.jpg")" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Dining & Amenities</h5>
+                        <p class="card-text">Hotel Hidden Kingdom produces the highest quality food in our fully-equipped restaurant.</p>
+                        <a href="#" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@Url.Content("~/content/images/room.jpg")" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">View our rooms</h5>
+                        <p class="card-text">Browse our set of luxury, state of the art rooms and apartments</p>
+                        <a href="#" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@Url.Content("~/content/images/outside.jpg")" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Gallery</h5>
+                        <p class="card-text">Take a look at our gorgeous, newly built and highly furnished rooms, restaurants, lounges and apartments</p>
+                        <a href="#" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center mb-5">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
+    </div>
+    <div class="container  mb-3">
+        <div class="row">
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Our location</div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Address</h5>
+                        <p class="card-text">Street 9A, Lakeside Rd, Pokhara 33700, Nepal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="container">
+                    <iframe width="450"
+                            height="250"
+                            frameborder="0" style="border:0"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyADMurvFdPoWrbvJ-MRUGl3wcCO1HWUdKI&q=Hotel+Hidden+Kingdom,Pokhara+Nepal"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="col-sm d-flex align-items-stretch">
+                <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Contact us</div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Email & Phone</h5>
+                        <p class="card-text">info@hotelhiddenkingdom.com</p>
+                        <p class="card-text">+977 985-6083004</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $("#subtitle").click(function () {
+            alert("Secret alert");
+        });
+    </script>
+
+
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed(".auto-type", {
+        strings: ["Luxury", "Style", "Comfort", "Peace"],
+        typeSpeed: 150,
+        backSpeed: 200,
+        loop: true
+        });
+
+    </script>
+</body>

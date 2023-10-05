@@ -1,0 +1,83 @@
+﻿@model IEnumerable<HotelManagement.Models.Booking>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    List<Booking> checkIns = new List<Booking>();
+    List<Booking> checkOuts = new List<Booking>();
+
+    foreach(Booking booking in Model)
+    {
+        if(booking.CheckIn.Date == DateTime.Now.Date)
+        {
+            checkIns.Add(booking);
+        }
+        if (booking.CheckOut.Date == DateTime.Now.Date)
+        {
+            checkOuts.Add(booking);
+        }
+    }
+
+}
+
+<h3>Todays breakdown:</h3>
+
+<form>
+    <input type="date" asp-action="Index"/>
+</form>
+
+<h6 class="mb-4">Check-ins:</h6>
+
+
+@foreach(Booking checkIn in checkIns)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Room: @checkIn.Room.Name | @checkIn.Room.Description</h4>
+            <p>@checkIn.CheckIn.Date.ToShortDateString() - @checkIn.CheckOut.Date.ToShortDateString()</p>
+        </div>
+        <div class="card-body">
+            <p>Price: @checkIn.Price</p>
+            <p>Number of people: @checkIn.People</p>
+            <p>Guest:</p>
+            <ul>
+                <li>Name: @checkIn.User.FirstName @checkIn.User.LastName</li>
+                <li>Contact: @checkIn.User.Email | @checkIn.User.PhoneNumber</li>
+                <li>Address: @checkIn.User.Address</li>
+            </ul>
+
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-danger" asp-controller="Booking" asp-action="Delete" asp-route-id="@checkIn.Id">Remove user booking</a>
+        </div>
+    </div>
+    
+}
+
+
+<h6 class="mb-4">Check-outs:</h6>
+@foreach (Booking checkOut in checkOuts)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>@checkOut.CheckIn.Date.ToShortDateString() - @checkOut.CheckOut.Date.ToShortDateString()</h4>
+            <p>Room: @checkOut.Room.Name | @checkOut.Room.Description</p>
+        </div>
+        <div class="card-body">
+            <p>Price: @checkOut.Price</p>
+            <p>Number of people: @checkOut.People</p>
+            <p>Guest:</p>
+            <ul>
+                <li>Name: @checkOut.User.FirstName @checkOut.User.LastName</li>
+                <li>Contact: @checkOut.User.Email | @checkOut.User.PhoneNumber</li>
+                <li>Address: @checkOut.User.Address</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-danger" asp-controller="Booking" asp-action="Delete" asp-route-id="@checkOut.Id">Remove user booking</a>
+        </div>
+    </div>
+
+}
+
